@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  db:
+    image: mariadb:latest
+    environment:
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 'yes'
+      MYSQL_DATABASE: userdb
+      MYSQL_USER: ziruiliu
+      MYSQL_PASSWORD: ''
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  app_new:
+    build:
+      context: .
+    ports:
+      - "3001:3001"
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_USER: ziruiliu
+      DB_PASSWORD: ''
+      DB_NAME: userdb

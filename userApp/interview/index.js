@@ -12,10 +12,10 @@ app.use(express.json()); // To parse JSON bodies
 
 // Database connection setup
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'ziruiliu',  // Your MariaDB username
-  password: '',  // Your MariaDB password (leave empty if none)
-  database: 'userdb'  // The database we created earlier
+  host: process.env.DB_HOST || 'localhost',
+  user: process.env.DB_USER || 'ziruiliu',
+  password: process.env.DB_PASSWORD || '',
+  database: process.env.DB_NAME || 'userdb'
 });
 
 // Test the database connection
