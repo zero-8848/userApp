@@ -1,17 +1,17 @@
 # Use the official Node.js image from the Docker Hub
 FROM node:14
 
-# Create and set the working directory
-WORKDIR /usr/src/app
+# Install git
+RUN apt-get update && apt-get install -y git
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+# Clone the repository
+RUN git clone https://github.com/zero-8848/userApp.git /usr/src/app
+
+# Set the working directory to the backend directory
+WORKDIR /usr/src/app/userApp/interview
 
 # Install the dependencies
 RUN npm install
-
-# Copy the rest of the application code
-COPY . .
 
 # Expose the port the app runs on
 EXPOSE 3001
